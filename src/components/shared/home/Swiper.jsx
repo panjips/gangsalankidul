@@ -39,6 +39,7 @@ export const SwiperCarousel = () => {
           {data.map(({ id, image, tagline, title }) => (
             <SwiperSlide key={id}>
               <Image
+                priority
                 src={`${image}`}
                 alt="Carousel Image"
                 fill

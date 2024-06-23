@@ -37,4 +37,15 @@ const beritaSchema = yup.object().shape({
     .optional(),
 });
 
-export { beritaSchema };
+const agendaSchema = yup.object().shape({
+  agenda: yup.string().required("Agenda tidak boleh kosong"),
+  tanggal: yup.date().required("Tanggal agenda tidak boleh kosong"),
+  informasi: yup.string().optional(),
+});
+
+const profilSchema = yup.object().shape({
+  judul: yup.string().required("Judul tidak boleh kosong"),
+  berita: yup.string().required("Isi tidak boleh kosong"),
+});
+
+export { beritaSchema, agendaSchema, profilSchema };

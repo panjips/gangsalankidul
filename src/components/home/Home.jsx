@@ -1,14 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import { CardBerita, CardBeritaSkeleton } from "@/components/berita/CardBerita";
-import { CardAgenda } from "@/components/kegiatan/CardAgenda";
+import { CardAgenda, CardAgendaSkeleton } from "@/components/agenda/CardAgenda";
 import { MdArrowForward } from "react-icons/md";
 import Link from "next/link";
+import { SwiperHiburan } from "@/components/shared/home/SwiperHiburan";
+import { toNanosecond } from "@/lib/constants";
 
-export const Home = ({ berita }) => {
+export const Home = ({ berita, external, agenda }) => {
   const refWidth = useRef();
   const [width, setWidth] = useState(0);
+  const [filteredAgenda, setFilteredAgenda] = useState([]);
 
   useEffect(() => {
+    setFilteredAgenda(handleFilterAgenda);
+
     const handleResize = (entries) => {
       for (let entry of entries) {
         setWidth(entry.contentRect.width);
@@ -24,7 +29,13 @@ export const Home = ({ berita }) => {
         resizeObserver.unobserve(refWidth.current);
       }
     };
-  }, []);
+  }, [agenda]);
+
+  const dateNow = new Date().getTime();
+
+  const handleFilterAgenda = agenda.filter((agenda) => {
+    return toNanosecond(agenda.tanggal) > dateNow;
+  });
 
   const SkeletonBerita = () => {
     return (
@@ -59,7 +70,7 @@ export const Home = ({ berita }) => {
           </div>
           <div className="flex items-center justify-end mt-6">
             <Link
-              href="#"
+              href="/berita"
               className="text-green-700 flex gap-2 hover:text-green-900 transition"
             >
               <p className="font-semibold">LIHAT LAINNYA</p>
@@ -76,9 +87,26 @@ export const Home = ({ berita }) => {
             <div className="bg-green-600 h-1 w-32"></div>
           </div>
           <div className="flex flex-col gap-2">
-            <CardAgenda />
-            <CardAgenda />
-            <CardAgenda />
+            {agenda?.length === 0 ? (
+              <CardAgendaSkeleton></CardAgendaSkeleton>
+            ) : (
+              filteredAgenda?.map((agenda, index) => (
+                <CardAgenda key={index} agenda={agenda} />
+              ))
+            )}
+          </div>
+        </div>
+        <div className="col-span-3">
+          <div className="border-b border-b-green-300 mb-6">
+            <p className="text-2xl font-light text-green-700 mb-2">
+              BERITA{" "}
+              <strong className="text-green-800 font-bold">HIBURAN</strong>
+            </p>
+            <div className="bg-green-600 h-1 w-32"></div>
+          </div>
+
+          <div className="w-full">
+            <SwiperHiburan data={external} />
           </div>
         </div>
         <div className="col-span-3 md:col-span-2" ref={refWidth}>
@@ -104,8 +132,14 @@ export const Home = ({ berita }) => {
             </p>
             <div className="bg-green-600 h-1 w-32"></div>
           </div>
-          <div className="flex flex-col gap-2">
-            <div className="bg-slate-100 h-[360px] rounded-md"></div>
+          <div className="flex flex-col gap-2 group">
+            <div className="h-[360px] rounded-md overflow-hidden">
+              <img
+                alt=""
+                src="/struktur-organisasi.png"
+                className="aspect-video md:aspect-square h-full w-full object-contain rounded-t-md md:rounded-l-md md:rounded-tr-none group-hover:scale-110 transition-transform"
+              />
+            </div>
           </div>
         </div>
       </div>

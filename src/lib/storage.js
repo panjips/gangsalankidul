@@ -3,6 +3,7 @@ import {
   ref,
   uploadBytes,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
 import { nanoid } from "nanoid";
 
@@ -33,7 +34,7 @@ export const getFile = async (path) => {
 export const deleteFile = async (path) => {
   try {
     const fileRef = ref(storage, path);
-    return fileRef.delete();
+    await deleteObject(fileRef);
   } catch (error) {
     throw error;
   }

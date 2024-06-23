@@ -46,7 +46,7 @@ export const FormBerita = ({ value, setValue, isLoading, func }) => {
       />
 
       {!value.thumbnail ? (
-        <label className="col-span-2 border-2 border-default-200 shadow-sm border-dashed py-[22px] rounded-lg h-32 flex justify-center items-center flex-col ">
+        <label className="col-span-2 border-2 border-default-200 shadow-sm border-dashed py-[22px] rounded-lg h-36 md:h-64 lg:h-96 flex justify-center items-center flex-col ">
           <MdImage size={48} className="text-gray-300" />
           <div
             className="flex justify-center
@@ -71,7 +71,7 @@ export const FormBerita = ({ value, setValue, isLoading, func }) => {
           />
         </label>
       ) : (
-        <div className="col-span-2 flex justify-center items-center relative h-36 rounded-lg overflow-hidden border border-default-200 shadow-sm">
+        <div className="col-span-2 flex justify-center items-center relative h-36 md:h-64 lg:h-96 rounded-lg overflow-hidden border border-default-200 shadow-sm">
           <div
             onClick={handleDeleteFoto}
             className="z-10 absolute right-1 top-1 cursor-pointer"
@@ -79,6 +79,7 @@ export const FormBerita = ({ value, setValue, isLoading, func }) => {
             <MdClose className="text-indigo-500" />
           </div>
           <Image
+            priority
             fill
             sizes="100%"
             style={{
@@ -115,6 +116,7 @@ export const FormBerita = ({ value, setValue, isLoading, func }) => {
               <MdClose className="text-indigo-500" />
             </div>
             <Image
+              priority
               fill
               sizes="100%"
               style={{

@@ -16,7 +16,7 @@ export const Breadcrumb = ({ path }) => {
         }}
         variant="solid"
       >
-        <BreadcrumbItem href="/">
+        <BreadcrumbItem href="/" key="home">
           <MdDashboard />
         </BreadcrumbItem>
         {path.map((item, index) => (

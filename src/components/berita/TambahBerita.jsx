@@ -3,7 +3,7 @@ import { Breadcrumb } from "@/components/shared/Breadcrumb";
 import { uploadFile, getFile } from "@/lib/storage";
 import { beritaSchema } from "@/lib/form-schema";
 import toast from "react-hot-toast";
-import { addBerita } from "@/lib/firestore";
+import { addData } from "@/lib/firestore";
 import { useRouter } from "next/navigation";
 import { FormBerita } from "@/components/form/FormBerita";
 import { nanoid } from "nanoid";
@@ -38,7 +38,7 @@ export const TambahBerita = () => {
       }
 
       newBerita.folder = folder;
-      const upload = Promise.all([addBerita(newBerita)]);
+      const upload = Promise.all([addData(newBerita, "berita")]);
       await toast.promise(upload, {
         loading: "Menyimpan berita...",
         success: "Berita berhasil disimpan",

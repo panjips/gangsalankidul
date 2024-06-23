@@ -11,7 +11,7 @@ export default function Page() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllBerita("berita");
-      setBerita(data);
+      setBerita(data.reverse());
     };
     fetchData();
   }, []);

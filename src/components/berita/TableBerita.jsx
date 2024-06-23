@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Table,
   TableHeader,
@@ -7,10 +7,9 @@ import {
   TableRow,
   TableCell,
   Button,
+  Pagination,
 } from "@nextui-org/react";
 import { MdDelete, MdModeEdit } from "react-icons/md";
-import Link from "next/link";
-import { Breadcrumb } from "@/components/shared/Breadcrumb";
 import { useRouter } from "next/navigation";
 import { getAllBerita, deleteBerita } from "@/lib/firestore";
 import dayjs from "dayjs";
@@ -19,6 +18,17 @@ export const TableBerita = () => {
   const router = useRouter();
 
   const [collectionData, setCollectionData] = useState([]);
+
+  const [page, setPage] = React.useState(1);
+  const rowsPerPage = 5;
+  const pages = Math.ceil(collectionData.length / rowsPerPage);
+
+  const items = useMemo(() => {
+    const start = (page - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    return collectionData?.slice(start, end);
+  }, [page, collectionData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,8 +66,14 @@ export const TableBerita = () => {
 
   return (
     <div className="mx-6">
-      <div>
-        <Breadcrumb path={breadcrumb} />
+      <div className="my-3 w-full">
+        <div className="border-b border-b-green-300 mb-4">
+          <p className="text-xl font-light text-green-700 mb-2">
+            DASHBOARD{" "}
+            <strong className="text-green-800 font-bold">BERITA</strong>
+          </p>
+          <div className="bg-green-600 h-1 w-32"></div>
+        </div>
       </div>
 
       <div className="w-full my-3 flex justify-end">
@@ -73,14 +89,28 @@ export const TableBerita = () => {
       </div>
 
       <div>
-        <Table aria-label="Table Berita" radius="sm">
+        <Table
+          aria-label="Table Berita"
+          radius="sm"
+          bottomContent={
+            <div className="flex w-full justify-center">
+              <Pagination
+                color="secondary"
+                page={page}
+                total={pages}
+                hidden={collectionData.length == 0 ? true : false}
+                onChange={(page) => setPage(page)}
+              />
+            </div>
+          }
+        >
           <TableHeader className="flex justify-center">
             {headCell.map((cell) => (
               <TableColumn key={cell.id}>{cell.label}</TableColumn>
             ))}
           </TableHeader>
-          <TableBody>
-            {collectionData.map((data, index) => {
+          <TableBody items={items}>
+            {(data, index) => {
               let date = dayjs(data.tanggal_berita).format("DD MMMM YYYY");
               return (
                 <TableRow key={index}>
@@ -104,7 +134,7 @@ export const TableBerita = () => {
                   </TableCell>
                 </TableRow>
               );
-            })}
+            }}
           </TableBody>
         </Table>
       </div>

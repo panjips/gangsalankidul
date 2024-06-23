@@ -1,12 +1,14 @@
 "use client";
 import React from "react";
 import { PageContainer } from "@/components/shared/PageContainer";
-import { TableAgenda } from "@/components/agenda/TableAgenda";
+import { TableProfil } from "@/components/profil/TableProfil";
 
-export default function AgendaPage() {
+
+export default function Page() {
+
   return (
     <PageContainer>
-      <TableAgenda />
+      <TableProfil />
     </PageContainer>
   );
 }

@@ -10,6 +10,15 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination:
+          "https://berita-indo-api-next.vercel.app/api/cnn-news/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

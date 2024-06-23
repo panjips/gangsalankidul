@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Breadcrumb } from "@/components/shared/Breadcrumb";
 import { uploadFile, getFile } from "@/lib/storage";
 import toast from "react-hot-toast";
-import { updateBerita } from "@/lib/firestore";
+import { updateData } from "@/lib/firestore";
 import { useRouter } from "next/navigation";
 import { FormBerita } from "@/components/form/FormBerita";
 import * as yup from "yup";
@@ -101,11 +101,11 @@ export const UbahBerita = ({
         );
         if (!isLampiranValid)
           throw new yup.ValidationError("Terjadi kesalahan pada lampiran");
-        else newBerita = { ...newBerita, lampiran: { ...newLampiran } };
+        else newBerita = { ...newBerita, lampiran: [...newLampiran] };
       }
 
       await toast.promise(
-        updateBerita(value.id, { ...updateValue, ...newBerita }),
+        updateData(value.id, { ...updateValue, ...newBerita }, "berita"),
         {
           loading: "Menyimpan berita...",
           success: "Berita berhasil disimpan",

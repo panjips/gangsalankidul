@@ -9,13 +9,50 @@ import {
   setDoc,
   query,
   where,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 
-export const addBerita = async (data) => {
+export const addData = async (data, nameCollection) => {
   try {
-    const docRef = await addDoc(collection(db, "berita"), data);
+    const docRef = await addDoc(collection(db, nameCollection), data);
 
     return docRef.id;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// export const addAgenda = async (data) => {
+//   try {
+//     const docRef = await addDoc(collection(db, "agenda"), data);
+
+//     return docRef.id;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
+// export const addProfil = async (data) => {
+//   try {
+//     const docRef = await addDoc(collection(db, "profil"), data);
+
+//     return docRef.id;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
+export const addStruktur = async (data) => {
+  try {
+    const docRef = doc(db, "profil", "struktur");
+
+    const addStruktur = await updateDoc(docRef, {
+      photo: arrayUnion(data),
+    });
+
+    return addStruktur;
   } catch (error) {
     throw error;
   }
@@ -40,6 +77,34 @@ export const deleteBerita = async (id) => {
   }
 };
 
+export const deleteAgenda = async (id) => {
+  try {
+    await deleteDoc(doc(db, "agenda", id));
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteProfil = async (id) => {
+  try {
+    await deleteDoc(doc(db, "profil", id));
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteStruktur = async (url) => {
+  try {
+    const docRef = doc(db, "profil", "struktur");
+
+    await updateDoc(docRef, {
+      photo: arrayRemove(url),
+    });
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const getBerita = async (id) => {
   try {
     const docSnap = await getDoc(doc(db, "berita", id));
@@ -56,9 +121,9 @@ export const getBerita = async (id) => {
   }
 };
 
-export const updateBerita = async (id, data) => {
+export const updateData = async (id, data, collection) => {
   try {
-    await setDoc(doc(db, "berita", id), data);
+    await setDoc(doc(db, collection, id), data);
   } catch (error) {
     throw error;
   }

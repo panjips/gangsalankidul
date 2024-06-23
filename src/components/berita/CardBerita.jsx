@@ -11,13 +11,13 @@ export const CardBerita = ({ berita }) => {
         <img
           alt=""
           src={berita.thumbnail}
-          className="aspect-video md:aspect-square h-full w-full object-cover rounded-t-md md:rounded-l-md md:rounded-tr-none group-hover:scale-110 transition-transform"
+          className="aspect-video md:aspect-square h-full w-full object-cover rounded-t-md md:rounded-l-md md:rounded-tr-none group-hover:scale-110 group-hover:rotate-2 transition-transform"
         />
       </div>
 
       <div className="flex flex-1 flex-col rounded-md">
         <div className="p-2 sm:border-l-transparent sm:p-6">
-          <a href="#">
+          <a href={`/berita/${slug}`}>
             <h3 className="font-bold uppercase text-green-900">
               {berita.judul}
             </h3>
