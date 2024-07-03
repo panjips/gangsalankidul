@@ -54,6 +54,7 @@ export const DetailBerita = ({ berita }) => {
             src={berita.thumbnail}
             fill
             priority
+            sizes="1080px"
             quality={10}
             alt="Foto Berita"
             className="rounded-md"
@@ -85,6 +86,7 @@ export const DetailBerita = ({ berita }) => {
                   src={lampiran}
                   fill
                   priority
+                  sizes="1080px"
                   quality={10}
                   alt="Foto Berita"
                   className="rounded-md"

@@ -13,7 +13,7 @@ export default function DetailPage({ params }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getBeritaByJudul(deslugify(slug));
+      const data = await getBeritaByJudul(slug);
       setBerita(data);
     };
     fetchData();

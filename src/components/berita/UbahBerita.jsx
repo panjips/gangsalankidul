@@ -6,6 +6,7 @@ import { updateData } from "@/lib/firestore";
 import { useRouter } from "next/navigation";
 import { FormBerita } from "@/components/form/FormBerita";
 import * as yup from "yup";
+import slugify from "slugify";
 
 export const UbahBerita = ({
   value,
@@ -104,14 +105,13 @@ export const UbahBerita = ({
         else newBerita = { ...newBerita, lampiran: [...newLampiran] };
       }
 
-      await toast.promise(
-        updateData(value.id, { ...updateValue, ...newBerita }, "berita"),
-        {
-          loading: "Menyimpan berita...",
-          success: "Berita berhasil disimpan",
-          error: "Gagal menyimpan berita",
-        }
-      );
+      let updateBerita = { ...newBerita, ...updateValue };
+      updateBerita.slug = slugify(updateBerita.judul, { lower: true });
+      await toast.promise(updateData(value.id, updateBerita, "berita"), {
+        loading: "Menyimpan berita...",
+        success: "Berita berhasil disimpan",
+        error: "Gagal menyimpan berita",
+      });
 
       setIsLoading(false);
 

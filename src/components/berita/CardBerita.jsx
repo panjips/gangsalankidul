@@ -1,6 +1,7 @@
 import React from "react";
 import DOMPurify from "dompurify";
 import slugify from "slugify";
+import { selisihDate } from "@/lib/constants";
 
 export const CardBerita = ({ berita }) => {
   const sanitized = DOMPurify.sanitize(berita.berita);
@@ -27,6 +28,9 @@ export const CardBerita = ({ berita }) => {
             className="mt-2 line-clamp-2 text-sm/relaxed text-gray-700"
             dangerouslySetInnerHTML={{ __html: sanitized }}
           ></p>
+          <p className="my-2 font-light text-gray-700 text-sm">
+            {selisihDate(berita.tanggal_berita)}
+          </p>
         </div>
 
         <div className="sm:flex sm:items-end sm:justify-end">

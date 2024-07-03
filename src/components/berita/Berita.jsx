@@ -10,8 +10,11 @@ export const Berita = ({ berita }) => {
   const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
+    const sortedDate = berita.sort((a, b) => {
+      return new Date(b.tanggal_berita) - new Date(a.tanggal_berita);
+    });
     setFilteredData(
-      berita.filter((data) => {
+      sortedDate.filter((data) => {
         return data.judul.toLowerCase().includes(search.toLowerCase());
       })
     );

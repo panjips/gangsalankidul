@@ -7,6 +7,7 @@ import { addData } from "@/lib/firestore";
 import { useRouter } from "next/navigation";
 import { FormBerita } from "@/components/form/FormBerita";
 import { nanoid } from "nanoid";
+import slugify from "slugify";
 
 export const TambahBerita = () => {
   const breadcrumb = ["Berita", "Tambah Berita"];
@@ -38,6 +39,7 @@ export const TambahBerita = () => {
       }
 
       newBerita.folder = folder;
+      newBerita.slug = slugify(value.judul, { lower: true });
       const upload = Promise.all([addData(newBerita, "berita")]);
       await toast.promise(upload, {
         loading: "Menyimpan berita...",

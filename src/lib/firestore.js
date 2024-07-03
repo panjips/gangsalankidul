@@ -24,26 +24,6 @@ export const addData = async (data, nameCollection) => {
   }
 };
 
-// export const addAgenda = async (data) => {
-//   try {
-//     const docRef = await addDoc(collection(db, "agenda"), data);
-
-//     return docRef.id;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-// export const addProfil = async (data) => {
-//   try {
-//     const docRef = await addDoc(collection(db, "profil"), data);
-
-//     return docRef.id;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
 export const addStruktur = async (data) => {
   try {
     const docRef = doc(db, "profil", "struktur");
@@ -150,7 +130,7 @@ export const getUsers = async (username) => {
 export const getBeritaByJudul = async (judul) => {
   try {
     let data = null;
-    const q = query(collection(db, "berita"), where("judul", "==", judul));
+    const q = query(collection(db, "berita"), where("slug", "==", judul));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       if (!doc.id) return;
