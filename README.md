@@ -59,14 +59,4 @@ Selamat datang di repository Unofficial Website Padukuhan Gangsalan Kidul! Websi
     npm run dev
     ```
 
-## Kontribusi
-
-Kami sangat mengapresiasi kontribusi dari semua pihak. Untuk berkontribusi, silakan buat pull request atau buka issue baru jika menemukan bug atau memiliki saran perbaikan.
-
-## Lisensi
-
-Proyek ini dilisensikan di bawah lisensi [MIT](LICENSE).
-
----
-
 Terima kasih telah mengunjungi dan menggunakan Unofficial Website Padukuhan Gangsalan Kidul!
