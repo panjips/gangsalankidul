@@ -3,6 +3,7 @@ import { Breadcrumbs, BreadcrumbItem } from "@nextui-org/react";
 import Link from "next/link";
 
 export const Breadcrumb = ({ items }) => {
+  console.log(items);
   return (
     <div className="bg-green-50 w-full rounded-md h-12 border border-green-300 flex justify-start py-2 px-4 items-center">
       <Breadcrumbs>
@@ -28,7 +29,7 @@ export const Breadcrumb = ({ items }) => {
             key={index}
             color={index === items.length - 1 ? "" : "success"}
           >
-            {item}
+            <Link href={item.href}>{item.label}</Link>
           </BreadcrumbItem>
         ))}
       </Breadcrumbs>

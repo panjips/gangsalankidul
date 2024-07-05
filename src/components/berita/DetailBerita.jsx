@@ -3,9 +3,14 @@ import { Breadcrumb } from "@/components/shared/home/Breadcrumb";
 import dayjs from "dayjs";
 import Image from "next/image";
 import DOMPurify from "dompurify";
+import slugify from "slugify";
 
 export const DetailBerita = ({ berita }) => {
-  const items = ["Berita", "Detail Berita"];
+  const items = [
+    { label: "Berita", href: "/berita" },
+    { label: "Detail Berita", href: slugify(berita.judul, { lower: true }) },
+  ];
+
   const date = dayjs(berita.tanggal_berita).format("DD MMMM YYYY");
   const getDay = dayjs(berita.tanggal_berita).day();
   let day = "";

@@ -8,19 +8,15 @@ import {
   ModalFooter,
   Button,
   Input,
-  DatePicker,
-  Textarea,
 } from "@nextui-org/react";
 
-export const ModalAgenda = ({
+export const ModalDataPadukuhan = ({
   isOpen,
   onOpenChange,
   input,
   handleChange,
-  updateAgenda,
+  updateData,
 }) => {
-
-  
   return (
     <>
       <Modal
@@ -35,42 +31,24 @@ export const ModalAgenda = ({
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Tambah Agenda
+                Ubah Data Padukuhan
               </ModalHeader>
               <ModalBody>
                 <form className="flex flex-col gap-4">
                   <Input
                     type="text"
                     variant="bordered"
-                    label="Agenda"
-                    name="agenda"
-                    value={input.agenda ? input.agenda : ""}
+                    label="Nama"
+                    name="nama"
+                    value={input.nama ? input.nama : ""}
                     onChange={handleChange}
                   />
-                  <DatePicker
-                    label="Tanggal"
+                  <Input
+                    type="text"
                     variant="bordered"
-                    name="tanggal"
-                    onChange={(date) => {
-                      handleChange({
-                        target: {
-                          name: "tanggal",
-                          value: date.toDate(),
-                        },
-                      });
-                    }}
-                    defaultValue={input.tanggal}
-                  />
-                  <Textarea
-                    label="Informasi Tambahan"
-                    variant="bordered"
-                    disableAnimation
-                    disableAutosize
-                    name="informasi"
-                    defaultValue={input.informasi ? input.informasi : ""}
-                    classNames={{
-                      input: "resize-y min-h-[40px]",
-                    }}
+                    label="Jumlah"
+                    name="jumlah"
+                    value={input.jumlah ? input.jumlah : ""}
                     onChange={handleChange}
                   />
                 </form>
@@ -82,7 +60,7 @@ export const ModalAgenda = ({
                 <Button
                   color="warning"
                   className="text-white"
-                  onPress={updateAgenda}
+                  onPress={updateData}
                 >
                   Ubah
                 </Button>

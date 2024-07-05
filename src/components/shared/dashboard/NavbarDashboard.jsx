@@ -21,6 +21,7 @@ export const NavbarDashboard = () => {
     { page: "Berita", path: "/dashboard/berita" },
     { page: "Agenda", path: "/dashboard/agenda" },
     { page: "Profil", path: "/dashboard/profil" },
+    { page: "Data Padukuhan", path: "/dashboard/data-padukuhan" },
     { page: "Log out", path: "/login" },
   ];
 

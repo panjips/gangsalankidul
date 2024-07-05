@@ -4,7 +4,7 @@ import { CardBerita, CardBeritaSkeleton } from "@/components/berita/CardBerita";
 import { VscSearch } from "react-icons/vsc";
 
 export const Berita = ({ berita }) => {
-  const items = ["Berita"];
+  const items = [{ label: "Berita", href: "/berita" }];
   const [length, setLength] = useState(6);
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
@@ -75,7 +75,7 @@ export const Berita = ({ berita }) => {
         )}
       </div>
 
-      {berita.length > length && (
+      {filteredData.length > length && (
         <button
           className="h-10 w-full bg-green-500 border border-green-700 hover:bg-green-600 transition flex justify-center items-center rounded-md mt-6"
           onClick={handleLoadMore}

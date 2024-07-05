@@ -29,7 +29,7 @@ export const SwiperCarousel = () => {
 
   return (
     <section className="w-full">
-      <div className="h-[75vh]">
+      <div className="h-[90vh]">
         <Swiper
           autoplay={true}
           loop={true}

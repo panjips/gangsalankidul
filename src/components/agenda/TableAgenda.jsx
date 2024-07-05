@@ -63,7 +63,7 @@ export const TableAgenda = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllBerita("agenda");
-      setCollectionData(data);
+      setCollectionData(data.reverse());
     };
     fetchData();
   }, [refresh]);
@@ -144,6 +144,8 @@ export const TableAgenda = () => {
     }
   };
 
+  console.log(collectionData);
+  console.log(input);
   return (
     <div className="mx-6">
       <div className="my-3 w-full">
@@ -175,6 +177,7 @@ export const TableAgenda = () => {
           isOpen={isOpenTambah}
           onOpenChange={onOpenChangeTambah}
           input={input}
+          setInput={setInput}
           handleChange={handleChangeInput}
           insertAgenda={handleInsertAgenda}
         />
@@ -211,28 +214,21 @@ export const TableAgenda = () => {
                   <TableCell>{convertedDate}</TableCell>
                   <TableCell>
                     <div className="flex gap-1">
-                      <div className="p-2 border rounded-md border-orange-200 hover:bg-orange-100 transition duration-300 active:bg-orange-200">
-                        <MdModeEdit
-                          className="text-orange-500"
-                          onClick={() => {
-                            setInput({
-                              agenda: data.agenda,
-                              tanggal: parseAbsoluteToLocal(
-                                dayjs(date).toISOString()
-                              ),
-                              informasi: data.informasi,
-                              id: data.id,
-                            });
-                            onOpenUbah();
-                          }}
-                        />
-                        <ModalUbah
-                          isOpen={isOpenUbah}
-                          onOpenChange={onOpenChangeUbah}
-                          input={input}
-                          handleChange={handleChangeInput}
-                          updateAgenda={() => handleUbahAgenda(input)}
-                        />
+                      <div
+                        onClick={() => {
+                          setInput({
+                            agenda: data.agenda,
+                            tanggal: parseAbsoluteToLocal(
+                              dayjs(date).toISOString()
+                            ),
+                            informasi: data.informasi ? data.informasi : "",
+                            id: data.id,
+                          });
+                          onOpenUbah();
+                        }}
+                        className="p-2 border rounded-md border-orange-200 hover:bg-orange-100 transition duration-300 active:bg-orange-200"
+                      >
+                        <MdModeEdit className="text-orange-500" />
                       </div>
                       <div className="p-2 border rounded-md border-red-300 hover:bg-red-50 transition duration-300 active:bg-red-100">
                         <MdDelete
@@ -248,6 +244,13 @@ export const TableAgenda = () => {
           </TableBody>
         </Table>
       </div>
+      <ModalUbah
+        isOpen={isOpenUbah}
+        onOpenChange={onOpenChangeUbah}
+        input={input}
+        handleChange={handleChangeInput}
+        updateAgenda={() => handleUbahAgenda(input)}
+      />
     </div>
   );
 };

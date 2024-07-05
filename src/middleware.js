@@ -18,11 +18,14 @@ export default async function middleware(request) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
   } else {
-    if (!token) return NextResponse.redirect(new URL("/login", request.url));
+    if (!token) return NextResponse.redirect(new URL("/", request.url));
     try {
       const jwtSecret = process.env.JWT_SECRET_KEY;
       const encodedJwtSecret = new TextEncoder().encode(jwtSecret);
       await jose.jwtVerify(token, encodedJwtSecret);
+
+      if (path.includes("/dashboard") && path.length === 10)
+        return NextResponse.redirect(new URL("/dashboard/berita", request.url));
 
       return NextResponse.next();
     } catch (error) {

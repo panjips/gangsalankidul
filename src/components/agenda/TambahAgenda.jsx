@@ -46,10 +46,9 @@ export const ModalAgenda = ({
                     onChange={handleChange}
                   />
                   <DatePicker
+                    size="lg"
                     label="Tanggal"
                     variant="bordered"
-                    hideTimeZone
-                    showMonthAndYearPickers
                     name="tanggal"
                     onChange={(date) => {
                       handleChange({

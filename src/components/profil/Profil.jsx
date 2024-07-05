@@ -4,7 +4,7 @@ import DOMPurify from "dompurify";
 import Image from "next/image";
 
 export const Profil = ({ data }) => {
-  const items = ["Profil"];
+  const items = [{ label: "Profil", href: "/profil" }];
 
   return (
     <div className="mx-6">
