@@ -38,7 +38,9 @@ export const NavbarDashboard = () => {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <p className="font-bold text-inherit">GANGSALAN KIDUL</p>
+          <Link href="/dashboard" className="font-bold text-inherit">
+            GANGSALAN KIDUL
+          </Link>
         </NavbarBrand>
       </NavbarContent>
 

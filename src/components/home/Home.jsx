@@ -5,8 +5,9 @@ import { MdArrowForward } from "react-icons/md";
 import Link from "next/link";
 import { SwiperHiburan } from "@/components/shared/home/SwiperHiburan";
 import { toNanosecond } from "@/lib/constants";
+import { SwiperCarousel } from "@/components/shared/home/SwiperStruktur";
 
-export const Home = ({ berita, external, agenda }) => {
+export const Home = ({ berita, external, agenda, struktur }) => {
   const refWidth = useRef();
   const [width, setWidth] = useState(0);
   const [filteredAgenda, setFilteredAgenda] = useState([]);
@@ -134,11 +135,7 @@ export const Home = ({ berita, external, agenda }) => {
           </div>
           <div className="flex flex-col gap-2 group">
             <div className="h-[360px] rounded-md overflow-hidden">
-              <img
-                alt=""
-                src="/struktur-organisasi.png"
-                className="aspect-video md:aspect-square h-full w-full object-contain rounded-t-md md:rounded-l-md md:rounded-tr-none group-hover:scale-110 transition-transform"
-              />
+              {struktur !== null && <SwiperCarousel datas={struktur.photo} />}
             </div>
           </div>
         </div>
