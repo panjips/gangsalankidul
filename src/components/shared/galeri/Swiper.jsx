@@ -46,7 +46,7 @@ export const SwiperCarousel = ({ datas, judul }) => {
                   onClick={() => handleImageClick(data)}
                   className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300 flex items-center justify-center rounded-md"
                 >
-                  <span className="text-white text-sm p-12 text-center">
+                  <span className="text-white text-xs md:text-sm p-12 text-center">
                     {judul}
                   </span>
                 </div>
