@@ -21,11 +21,16 @@ export const SwiperCarousel = ({ datas }) => {
     <section className="w-full ">
       <div className="h-full">
         <Swiper
+          style={{
+            "--swiper-pagination-color": "#FFFFFF",
+            "--swiper-pagination-bullet-inactive-color": "#999999",
+            "--swiper-pagination-bullet-inactive-opacity": "0.8",
+            "--swiper-pagination-bullet-size": "10px",
+            "--swiper-pagination-bullet-horizontal-gap": "3px",
+          }}
           className="h-full"
           pagination={{
             clickable: true,
-            bulletClass: "swiper-pagination-bullet",
-            bulletActiveClass: "swiper-pagination-bullet-active",
           }}
           modules={[Pagination]}
         >
