@@ -8,7 +8,7 @@ import { useDisclosure } from "@nextui-org/react";
 import { ImageModal } from "@/components/shared/galeri/ModalGaleri";
 import React, { useState } from "react";
 
-export const SwiperCarousel = ({ datas }) => {
+export const SwiperCarousel = ({ datas, judul }) => {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [currentImage, setCurrentImage] = useState("");
 
@@ -24,7 +24,7 @@ export const SwiperCarousel = ({ datas }) => {
           style={{
             "--swiper-pagination-color": "#FFFFFF",
             "--swiper-pagination-bullet-inactive-color": "#999999",
-            "--swiper-pagination-bullet-inactive-opacity": "0.8",
+            "--swiper-pagination-bullet-inactive-opacity": "0.5",
             "--swiper-pagination-bullet-size": "10px",
             "--swiper-pagination-bullet-horizontal-gap": "3px",
           }}
@@ -36,12 +36,21 @@ export const SwiperCarousel = ({ datas }) => {
         >
           {datas.map((data, index) => (
             <SwiperSlide key={index}>
-              <img
-                alt="galeri"
-                src={data}
-                className="aspect-square h-full w-full object-cover rounded-md"
-                onClick={() => handleImageClick(data)}
-              />
+              <div className="relative group h-full w-full">
+                <img
+                  alt="galeri"
+                  src={data}
+                  className="aspect-square h-full w-full object-cover rounded-md"
+                />
+                <div
+                  onClick={() => handleImageClick(data)}
+                  className="absolute inset-0 bg-black opacity-0 group-hover:opacity-50 transition-opacity duration-300 flex items-center justify-center rounded-md"
+                >
+                  <span className="text-white text-sm p-12 text-center">
+                    {judul}
+                  </span>
+                </div>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>

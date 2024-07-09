@@ -22,7 +22,7 @@ export const Galeri = ({ dataBerita, dataGaleri }) => {
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 relative">
           {galeri.map((data, index) => {
             return (
-              <SwiperCarousel datas={data.lampiran || data.image} key={index} />
+              <SwiperCarousel datas={data.lampiran || data.image} judul={data.judul} key={index} />
             );
           })}
         </div>
