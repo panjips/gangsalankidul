@@ -17,6 +17,7 @@
     "framer-motion": "^11.2.10",
     "jose": "^5.4.0",
     "jsonwebtoken": "^9.0.2",
+    "lightgallery": "^2.7.2",
     "nanoid": "^5.0.7",
     "next": "14.2.3",
     "next-client-cookies": "^1.1.1",

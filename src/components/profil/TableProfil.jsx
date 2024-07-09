@@ -25,7 +25,7 @@ import {
   addStruktur,
   deleteStruktur,
   updateData,
-  deleteProfil,
+  deleteBerita,
 } from "@/lib/firestore";
 import { profilSchema } from "@/lib/form-schema";
 import { ModalProfil as ModalTambah } from "@/components/profil/TambahProfil";
@@ -177,7 +177,7 @@ export const TableProfil = () => {
 
   const handleDeleteProfil = async (id) => {
     try {
-      const deleteProfile = Promise.all([deleteProfil(id)]);
+      const deleteProfile = Promise.all([deleteBerita(id, "profil")]);
       await toast
         .promise(deleteProfile, {
           loading: "Menghapus profil...",

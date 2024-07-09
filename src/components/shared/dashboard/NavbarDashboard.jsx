@@ -21,6 +21,7 @@ export const NavbarDashboard = () => {
     { page: "Berita", path: "/dashboard/berita" },
     { page: "Agenda", path: "/dashboard/agenda" },
     { page: "Profil", path: "/dashboard/profil" },
+    { page: "Galeri", path: "/dashboard/galeri" },
     { page: "Data Padukuhan", path: "/dashboard/data-padukuhan" },
     { page: "Log out", path: "/login" },
   ];
@@ -61,7 +62,7 @@ export const NavbarDashboard = () => {
                 color="foreground"
                 className="w-full"
                 href={item.path}
-                size="lg"
+                size="sm"
               >
                 {item.page}
               </Link>

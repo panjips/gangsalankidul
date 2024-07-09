@@ -24,7 +24,7 @@ import { agendaSchema } from "@/lib/form-schema";
 import {
   addData,
   getAllBerita,
-  deleteAgenda,
+  deleteBerita,
   updateData,
 } from "@/lib/firestore";
 import { toNanosecond } from "@/lib/constants";
@@ -106,7 +106,7 @@ export const TableAgenda = () => {
 
   const handleDeleteAgenda = async (id) => {
     try {
-      await deleteAgenda(id);
+      await deleteBerita(id, "agenda");
       setRefresh(!refresh);
     } catch (error) {
       toast.error(error.message);

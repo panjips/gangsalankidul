@@ -49,25 +49,9 @@ export const getAllBerita = async (name) => {
   }
 };
 
-export const deleteBerita = async (id) => {
+export const deleteBerita = async (id, nameCollection) => {
   try {
-    await deleteDoc(doc(db, "berita", id));
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const deleteAgenda = async (id) => {
-  try {
-    await deleteDoc(doc(db, "agenda", id));
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const deleteProfil = async (id) => {
-  try {
-    await deleteDoc(doc(db, "profil", id));
+    await deleteDoc(doc(db, nameCollection, id));
   } catch (error) {
     throw error;
   }

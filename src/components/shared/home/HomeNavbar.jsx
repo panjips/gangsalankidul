@@ -20,6 +20,7 @@ export const HomeNavbar = () => {
   const menuItems = [
     { page: "BERITA", path: "/berita" },
     { page: "PROFIL", path: "/profil" },
+    { page: "GALERI", path: "/galeri" },
   ];
 
   const handleLogout = () => {
