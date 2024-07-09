@@ -58,6 +58,7 @@ export const SwiperCarousel = ({ datas, judul }) => {
           isOpen={isOpen}
           onOpenChange={onOpenChange}
           src={currentImage}
+          judul={judul}
         />
       </div>
     </section>

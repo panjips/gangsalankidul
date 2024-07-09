@@ -7,7 +7,7 @@ import {
   Image,
 } from "@nextui-org/react";
 
-export const ImageModal = ({ isOpen, onOpenChange, src }) => {
+export const ImageModal = ({ isOpen, onOpenChange, src, judul }) => {
   return (
     <Modal
       size="2xl"
@@ -23,6 +23,11 @@ export const ImageModal = ({ isOpen, onOpenChange, src }) => {
             <ModalBody className="p-0">
               <Image src={src} fill alt="image" />
             </ModalBody>
+            <ModalFooter>
+              <div className="w-full">
+                <p className="text-center text-sm">{judul}</p>
+              </div>
+            </ModalFooter>
           </>
         )}
       </ModalContent>
