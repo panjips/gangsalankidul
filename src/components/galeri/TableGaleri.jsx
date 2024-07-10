@@ -14,15 +14,33 @@ import { MdDelete, MdModeEdit } from "react-icons/md";
 import { deleteFile } from "@/lib/storage";
 import { getAllBerita, deleteBerita } from "@/lib/firestore";
 import { getFile, uploadFile } from "@/lib/storage";
-import { ModalGambar } from "@/components/galeri/TambahGambar";
+import {
+  ModalGambar as ModalTambah,
+  ModalGambar as ModalEdit,
+} from "@/components/galeri/TambahGambar";
 import { nanoid } from "nanoid";
-import { addData } from "@/lib/firestore";
+import { addData, updateData } from "@/lib/firestore";
 import toast from "react-hot-toast";
+import * as yup from "yup";
 
 export const TableGaleri = () => {
-  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenTambah,
+    onOpen: onOpenTambah,
+    onOpenChange: onOpenChangeTambah,
+    onClose: onCloseTambah,
+  } = useDisclosure();
+
+  const {
+    isOpen: isOpenUbah,
+    onOpen: onOpenUbah,
+    onOpenChange: onOpenChangeUbah,
+    onClose: onCloseUbah,
+  } = useDisclosure();
+
   const [collectionData, setCollectionData] = useState([]);
   const [input, setInput] = useState({ image: [] });
+  const [refresh, setRefresh] = useState(false);
 
   const [page, setPage] = React.useState(1);
   const rowsPerPage = 5;
@@ -41,7 +59,7 @@ export const TableGaleri = () => {
       setCollectionData(data);
     };
     fetchData();
-  }, []);
+  }, [refresh]);
 
   const headCell = [
     { id: "gambar", label: "Gambar" },
@@ -51,7 +69,7 @@ export const TableGaleri = () => {
 
   const handleInsert = async (e) => {
     const folder = `galeri/${nanoid()}/`;
-    let newImage = { ...input };
+    let newImage = { ...input, folder };
     try {
       if (input.image.length !== 0) {
         const uploadImage = await Promise.all(
@@ -69,9 +87,39 @@ export const TableGaleri = () => {
         success: "data berhasil disimpan",
         error: "Gagal menyimpan data",
       });
-      console.log("Data berhasil disimpan");
       setInput({ image: [] });
-      onClose();
+      setRefresh(!refresh);
+      onCloseTambah();
+    } catch (error) {
+      setInput({ image: [] });
+      toast.error(error.message);
+    }
+  };
+
+  const handleUbah = async (e) => {
+    try {
+      const newData = { ...input };
+      const newImage = await Promise.all(
+        input.image.map(async (item) => {
+          if (typeof item !== "string") {
+            const imagePath = await uploadFile(item, input.folder);
+            return await getFile(imagePath);
+          } else {
+            return item;
+          }
+        })
+      );
+
+      newData.image = newImage;
+      const uploadData = Promise.all([updateData(input.id, newData, "galeri")]);
+      await toast.promise(uploadData, {
+        loading: "Mengubah data...",
+        success: "Data berhasil diubah",
+        error: "Gagal mengubah data",
+      });
+      setRefresh(!refresh);
+      onCloseUbah();
+      setInput({ image: [] });
     } catch (error) {
       setInput({ image: [] });
       toast.error(error.message);
@@ -114,7 +162,7 @@ export const TableGaleri = () => {
           color="success"
           size="md"
           variant="flat"
-          onClick={onOpen}
+          onClick={onOpenTambah}
           className="shadow-sm"
         >
           Tambah Galeri
@@ -156,17 +204,20 @@ export const TableGaleri = () => {
                   <TableCell>{data.judul}</TableCell>
                   <TableCell>
                     <div className="flex gap-1">
-                      <div className="p-2 border rounded-md border-orange-200 hover:bg-orange-100 transition duration-300 active:bg-orange-200">
-                        <MdModeEdit
-                          className="text-orange-500"
-                          onClick={() => handleUbah(data.id)}
-                        />
+                      <div
+                        onClick={() => {
+                          onOpenUbah();
+                          setInput(data);
+                        }}
+                        className="p-2 border rounded-md border-orange-200 hover:bg-orange-100 transition duration-300 active:bg-orange-200"
+                      >
+                        <MdModeEdit className="text-orange-500" />
                       </div>
-                      <div className="p-2 border rounded-md border-red-300 hover:bg-red-50 transition duration-300 active:bg-red-100">
-                        <MdDelete
-                          className="text-red-500"
-                          onClick={() => handleDelete(data)}
-                        />
+                      <div
+                        className="p-2 border rounded-md border-red-300 hover:bg-red-50 transition duration-300 active:bg-red-100"
+                        onClick={() => handleDelete(data)}
+                      >
+                        <MdDelete className="text-red-500" />
                       </div>
                     </div>
                   </TableCell>
@@ -175,10 +226,19 @@ export const TableGaleri = () => {
             })}
           </TableBody>
         </Table>
-        <ModalGambar
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
+        <ModalEdit
+          isOpen={isOpenUbah}
+          onOpenChange={onOpenChangeUbah}
           input={input}
+          action={"edit"}
+          setInput={setInput}
+          handleInsert={handleUbah}
+        />
+        <ModalTambah
+          isOpen={isOpenTambah}
+          onOpenChange={onOpenChangeTambah}
+          input={input}
+          action={"tambah"}
           setInput={setInput}
           handleInsert={handleInsert}
         />

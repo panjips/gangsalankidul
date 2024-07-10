@@ -13,20 +13,47 @@ import {
 } from "@nextui-org/react";
 import { MdImage, MdClose } from "react-icons/md";
 import Image from "next/image";
+import * as yup from "yup";
+import toast from "react-hot-toast";
 
 export const ModalGambar = ({
   isOpen,
   onOpenChange,
   input,
+  action,
   setInput,
   handleInsert,
 }) => {
-  const handleChange = (e) => {
+  const handleChange = async (e) => {
     if (e.target.name === "image") {
-      setInput((prev) => ({
-        ...prev,
-        [e.target.name]: [...prev.image, e.target.files[0]],
-      }));
+      const imageSchema = yup.object().shape({
+        image: yup
+          .mixed()
+          .test(
+            "fileType",
+            "File gambar harus bertipe (jpg/jpeg/png)",
+            (value) => {
+              if (!value) return true;
+              return ["image/jpg", "image/jpeg", "image/png"].includes(
+                value.type
+              );
+            }
+          )
+          .test("fileSize", "Gambar tidak boleh lebih dari 1MB", (value) => {
+            if (!value) return true;
+            return value.size <= 1048576;
+          }),
+      });
+
+      try {
+        await imageSchema.validate({ image: e.target.files[0] });
+        setInput((prev) => ({
+          ...prev,
+          [e.target.name]: [...prev.image, e.target.files[0]],
+        }));
+      } catch (error) {
+        toast.error(error.message);
+      }
     } else {
       setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     }
@@ -47,7 +74,7 @@ export const ModalGambar = ({
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1">
-                Tambah Foto
+                {action === "edit" ? "Edit Galeri" : "Tambah Galeri"}
               </ModalHeader>
               <ModalBody>
                 <form className="flex flex-col gap-4">
@@ -56,6 +83,7 @@ export const ModalGambar = ({
                     variant="bordered"
                     label="Judul"
                     name="judul"
+                    value={input.judul ? input.judul : ""}
                     onChange={handleChange}
                   />
                   <div className="col-span-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-2">
@@ -122,8 +150,11 @@ export const ModalGambar = ({
                 <Button color="danger" variant="light" onPress={onClose}>
                   Batal
                 </Button>
-                <Button color="primary" onPress={handleInsert}>
-                  Tambah
+                <Button
+                  color={action === "edit" ? "default" : "primary"}
+                  onPress={handleInsert}
+                >
+                  {action === "edit" ? "Edit" : "Tambah"}
                 </Button>
               </ModalFooter>
             </>
