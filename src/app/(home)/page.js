@@ -14,6 +14,7 @@ export default function HomePage() {
   const [external, setExternal] = useState(null);
   const [padukuhan, setPadukuhan] = useState([]);
   const [struktur, setStruktur] = useState([]);
+  const [galeris, setGaleris] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,10 +22,12 @@ export default function HomePage() {
       const dataAgenda = await getAllBerita("agenda");
       const dataPadukuhan = await getAllBerita("data-padukuhan");
       const dataStruktur = await getAllBerita("profil");
+      const galeri = await getAllBerita("galeri");
       setAgenda(dataAgenda);
       setBerita(data.reverse());
       setPadukuhan(dataPadukuhan.reverse());
       setStruktur(dataStruktur);
+      setGaleris(galeri.reverse());
     };
 
     const fetchExternal = async () => {
@@ -47,6 +50,7 @@ export default function HomePage() {
           external={external}
           agenda={agenda}
           struktur={dataStruktur}
+          galeris={galeris}
         />
       </PageContainer>
       <Footer />
@@ -59,6 +63,7 @@ const HomeCompenent = memo(function HomeCompenent({
   external,
   agenda,
   struktur,
+  galeris,
 }) {
   return (
     <Home
@@ -66,6 +71,7 @@ const HomeCompenent = memo(function HomeCompenent({
       external={external}
       agenda={agenda}
       struktur={struktur}
+      galeris={galeris}
     />
   );
 });

@@ -6,11 +6,13 @@ import Link from "next/link";
 import { SwiperHiburan } from "@/components/shared/home/SwiperHiburan";
 import { toNanosecond } from "@/lib/constants";
 import { SwiperCarousel } from "@/components/shared/home/SwiperStruktur";
+import { SwiperCarousel as SwiperGaleri } from "@/components/shared/galeri/Swiper";
 
-export const Home = ({ berita, external, agenda, struktur }) => {
+export const Home = ({ berita, external, agenda, struktur, galeris }) => {
   const refWidth = useRef();
   const [width, setWidth] = useState(0);
   const [filteredAgenda, setFilteredAgenda] = useState([]);
+  const galeri = [...berita, ...galeris];
 
   useEffect(() => {
     setFilteredAgenda(handleFilterAgenda);
@@ -100,6 +102,40 @@ export const Home = ({ berita, external, agenda, struktur }) => {
         <div className="col-span-3">
           <div className="border-b border-b-green-300 mb-6">
             <p className="text-2xl font-light text-green-700 mb-2">
+              GALERI{" "}
+              <strong className="text-green-800 font-bold">PADUKUHAN</strong>
+            </p>
+            <div className="bg-green-600 h-1 w-32"></div>
+          </div>
+
+          <div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 relative">
+              {galeri.slice(0, 5).map((data, index) => {
+                return (
+                  <SwiperGaleri
+                    datas={data.lampiran || data.image}
+                    judul={data.judul}
+                    key={index}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex items-center justify-end mt-6">
+            <Link
+              href="/galeri"
+              className="text-green-700 flex gap-2 hover:text-green-900 transition"
+            >
+              <p className="font-semibold">LIHAT LAINNYA</p>
+              <MdArrowForward size={24} />
+            </Link>
+          </div>
+        </div>
+
+        <div className="col-span-3 md:col-span-1">
+          <div className="border-b border-b-green-300 mb-6">
+            <p className="text-2xl font-light text-green-700 mb-2">
               BERITA{" "}
               <strong className="text-green-800 font-bold">HIBURAN</strong>
             </p>
@@ -110,6 +146,23 @@ export const Home = ({ berita, external, agenda, struktur }) => {
             <SwiperHiburan data={external} />
           </div>
         </div>
+
+        <div className="col-span-3 md:col-span-2" ref={refWidth}>
+          <div className="border-b border-b-green-300 mb-6">
+            <p className="text-2xl font-light text-green-700 mb-2">
+              VIDEO{" "}
+              <strong className="text-green-800 font-bold">SEJARAH</strong>
+            </p>
+            <div className="bg-green-600 h-1 w-32"></div>
+          </div>
+          <iframe
+            className="rounded-md shadow-md"
+            width={width}
+            height={384}
+            src="https://www.youtube.com/embed/RusdeabjvUE"
+          ></iframe>
+        </div>
+
         <div className="col-span-3 md:col-span-2" ref={refWidth}>
           <div className="border-b border-b-green-300 mb-6">
             <p className="text-2xl font-light text-green-700 mb-2">

@@ -14,17 +14,6 @@ export const SwiperHiburan = ({ data }) => {
     <>
       <Swiper
         slidesPerView="1"
-        breakpoints={{
-          768: {
-            slidesPerView: 2,
-          },
-          1024: {
-            slidesPerView: 3,
-          },
-          1280: {
-            slidesPerView: 3,
-          },
-        }}
         autoplay={{
           delay: 2000,
           pauseOnMouseEnter: true,
@@ -44,8 +33,6 @@ export const SwiperHiburan = ({ data }) => {
           <>
             <div className="flex w-full gap-6">
               <SkeletonCardBeritaHiburan />
-              <SkeletonCardBeritaHiburan className={`hidden md:block`} />
-              <SkeletonCardBeritaHiburan className={`hidden md:block`} />
             </div>
           </>
         )}
