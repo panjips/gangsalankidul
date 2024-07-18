@@ -96,8 +96,8 @@ export const Footer = ({ className }) => {
                         />
                         <path
                           stroke="#000000"
-                          stroke-linecap="round"
-                          stroke-width="0.36"
+                          strokeLinecap="round"
+                          strokeWidth="0.36"
                           d="M3.42 2.52H2.64c-0.232 0 -0.42 0.188 -0.42 0.42v0c0 0.232 0.188 0.42 0.42 0.42h0.12m-0.06 0h0.42c0.232 0 0.42 0.188 0.42 0.42v0c0 0.232 -0.188 0.42 -0.42 0.42H2.34"
                         />
                       </svg>
