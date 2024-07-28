@@ -22,7 +22,7 @@ export const Footer = ({ className }) => {
                 </p>
 
                 <p className="text-xs text-gray-500 mt-2 md:mt-0">
-                  Copyright © 2024 Kelompok 31
+                  Copyright © 2024 KKN 85 UAJY Kelompok 31
                 </p>
               </div>
 

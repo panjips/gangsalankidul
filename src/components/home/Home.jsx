@@ -110,7 +110,7 @@ export const Home = ({ berita, external, agenda, struktur, galeris }) => {
 
           <div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 relative">
-              {galeri.slice(0, 5).map((data, index) => {
+              {galeri.slice(0, 6).map((data, index) => {
                 return (
                   <SwiperGaleri
                     datas={data.lampiran || data.image}
